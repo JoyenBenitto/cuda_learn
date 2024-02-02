@@ -1,28 +1,21 @@
+#include <stdio.h>
+
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
-
-#include <stdio.h>
-
-//Device Code
-__global__ void hello_cuda() {
+__global__ void hello_cuda(){
     printf("Hello from CUDA world \n");
 }
 
-//Host code
-int main() {
 
+int main(){
+    
+    dim3 block(8,2,1);
+    dim3 threads_per_block(2,2,1);
+    
+    hello_cuda<<<block, threads_per_block>>>();
 
-    //kernel launch parameters
-
-    dim3 block(4);
-    dim3 grid(8);
-
-    hello_cuda << <grid, block >> > (); // async call
-    printf("Hello from CPU \n");
-    cudaDeviceSynchronize();// will make the prgram stall till all the launched kernels have finished execution
-
-
+    cudaDeviceSynchronize();
     cudaDeviceReset();
     return 0;
 }

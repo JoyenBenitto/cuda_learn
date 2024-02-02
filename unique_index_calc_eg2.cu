@@ -5,10 +5,10 @@
 
 //Device Code
 __global__ void unique_idx_calc_threadIdx(int * input) {
-int tid = threadIdx.x;
-int offset = blockIdx.x*blockDim.x;
-int gid = tid + offset;
-printf("threadIdx.x : %d, value : %d \n", tid, input[gid]);
+
+int gid = gridDim.x*blockDim.x*blockIdx.y + blockIdx.x* blockDim.x + threadIdx.x;
+
+printf("threadIdx.x : %d, value : %d \n", gid, input[gid]);
 }
 
 //Host code
@@ -27,8 +27,8 @@ int main() {
 	cudaMalloc((void**)&d_data, array_byte_size);
 	cudaMemcpy(d_data, h_data, array_byte_size, cudaMemcpyHostToDevice);
 
-	dim3 blocks(2);
-	dim3 threads_per_block(4);
+	dim3 blocks(2,2);
+	dim3 threads_per_block(2);
 	unique_idx_calc_threadIdx <<<blocks, threads_per_block>>>(d_data);
 	
     cudaDeviceSynchronize();

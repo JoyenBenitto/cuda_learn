@@ -1,14 +1,13 @@
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 
 //Device Code
 __global__ void unique_idx_calc_threadIdx(int * input) {
-int tid = threadIdx.x;
-int offset = blockIdx.x*blockDim.x;
-int gid = tid + offset;
-printf("threadIdx.x : %d, value : %d \n", tid, input[gid]);
+	int tid = threadIdx.x;
+	printf("threadIdx.x : %d, value : %d \n", tid, input[tid]);
 }
 
 //Host code

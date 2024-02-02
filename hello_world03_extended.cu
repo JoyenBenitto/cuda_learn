@@ -4,7 +4,7 @@
 
 //Device Code
 __global__ void hello_cuda(){
-	printf("Hello from CUDA world \n");
+	printf("Hello from CUDA world %d \n", 10);
 }
 
 //Host code
