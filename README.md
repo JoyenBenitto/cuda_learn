@@ -1,3 +1,3 @@
 # cuda_learn
-- [Program-1](hello_world.cu)
-- [Program-2](hello_world_02.cu)
+
+The following repo consists of the code used to explain and understand the CUDA Framework
